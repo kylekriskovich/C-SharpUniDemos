@@ -1,0 +1,33 @@
+﻿@{
+    ViewBag.Title = "Dom XSS Demo";
+}
+
+
+
+<div class="row">
+    <div class="col-md-4">
+        <h2> Search </h2>
+        <div>
+            <form action="" method="get">
+                <input type="text" name="search" placeholder="Search" />
+                <button type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+    <div id="results" class="col-md-4" style="display: none">
+        <h3> Search Results </h3>
+        <div>
+            <script>
+                document.write(unescape(document.baseURI));
+                document.getElementById("results").style.display = "block";
+            </script>
+        </div>
+    </div>
+</div>
+
+<!--
+ <script>
+    document.write(unescape(document.baseURI));
+    document.getElementById("results").style.display = "block";
+</script>
+-->

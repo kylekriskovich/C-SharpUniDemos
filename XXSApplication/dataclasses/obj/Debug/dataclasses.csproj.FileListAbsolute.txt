@@ -1,0 +1,12 @@
+C:\Users\Owner\source\repos\XXSApplication\dataclasses\bin\Debug\dataclasses.dll
+C:\Users\Owner\source\repos\XXSApplication\dataclasses\bin\Debug\dataclasses.pdb
+C:\Users\Owner\source\repos\XXSApplication\dataclasses\obj\Debug\dataclasses.csprojAssemblyReference.cache
+C:\Users\Owner\source\repos\XXSApplication\dataclasses\obj\Debug\dataclasses.csproj.CoreCompileInputs.cache
+C:\Users\Owner\source\repos\XXSApplication\dataclasses\obj\Debug\dataclasses.dll
+C:\Users\Owner\source\repos\XXSApplication\dataclasses\obj\Debug\dataclasses.pdb
+C:\Users\Kyle\Desktop\C# Demo Projects\XXSApplication\dataclasses\bin\Debug\dataclasses.dll
+C:\Users\Kyle\Desktop\C# Demo Projects\XXSApplication\dataclasses\bin\Debug\dataclasses.pdb
+C:\Users\Kyle\Desktop\C# Demo Projects\XXSApplication\dataclasses\obj\Debug\dataclasses.csprojAssemblyReference.cache
+C:\Users\Kyle\Desktop\C# Demo Projects\XXSApplication\dataclasses\obj\Debug\dataclasses.csproj.CoreCompileInputs.cache
+C:\Users\Kyle\Desktop\C# Demo Projects\XXSApplication\dataclasses\obj\Debug\dataclasses.dll
+C:\Users\Kyle\Desktop\C# Demo Projects\XXSApplication\dataclasses\obj\Debug\dataclasses.pdb

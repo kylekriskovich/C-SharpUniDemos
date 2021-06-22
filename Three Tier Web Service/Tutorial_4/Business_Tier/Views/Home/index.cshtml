@@ -1,0 +1,90 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+}
+<h2>@ViewBag.Title.</h2>
+
+
+<html>
+<body>
+    <form>
+        <div>
+            <label for="username"><b>Username: </b></label>
+            <input type="text" id="username" name="username" placeholder="Username" />
+            <br> <br />
+            <label for="password"><b>Password: </b></label>
+            <input type="text" id="password" name="password" placeholder="Password" />
+        </div>
+    </form>
+    <br> <br />
+    <button id="login" onclick="login()">Login</button>
+    <button id="create" onclick="createUser()">Create</button>
+    <div id="error"></div>
+
+    <div id="Content"></div>
+
+
+    <script>
+        function login() {
+
+            $.ajax({
+                url: 'https://localhost:44302/api/User/Login',
+                type: 'post',
+                contentType: 'application/json',
+                processData: false,
+
+                data: JSON.stringify({ Username: $("#username").val(), Password: $("#password").val() }),
+
+                success: function (data, textStatus, jQxhr) {
+                    LoadCommentPage();
+                    $('#error').html("<div>Successfully logged in</div>");
+                },
+                error: function (jqXhr, textStatus, errorThrown) {
+                    $('#error').html("<div>failed to login</div>");
+                    console.log(errorThrown);
+                }
+            });
+        }
+
+
+        function LoadCommentPage() {
+            $.ajax({
+                url: 'https://localhost:44302/Comments',
+                type: 'get',
+                processData: false,
+                success: function (d, t, j) {
+                    $('#Content').html(d);
+                },
+                error: function (j, t, e) {
+                    console.log("Error Occur:" + e);
+                }
+            });
+        }
+
+        function createUser() {
+
+            $.ajax({
+                url: 'https://localhost:44302/api/User/',
+                type: 'post',
+                contentType: 'application/json',
+                processData: false,
+
+                data: JSON.stringify({ Username: $("#username").val(), Password: $("#password").val() }),
+
+                success: function (data, textStatus, jQxhr) {
+                    $('#Content').html("");
+                    $('#error').html("<div>Created User</div>");
+
+                },
+                error: function (jqXhr, textStatus, errorThrown) {
+                    console.log(errorThrown);
+                    $('#error').html("<div>Failed to create User</div>");
+                }
+            });
+        }
+
+    </script>
+
+
+</body>
+</html>

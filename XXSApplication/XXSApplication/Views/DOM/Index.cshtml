@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "Dom XXS Demo";
+}
+
+
+
+<div class="row">
+    
+    <div class="col-md-4">
+        <h2> Search </h2>
+        <div>
+            <form action="" method="get">
+                <input type="text" name="search" placeholder="Search" />
+                <button type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.write("<h3> Search Results </h3>");
+    document.write(unescape(document.baseURI));
+</script>

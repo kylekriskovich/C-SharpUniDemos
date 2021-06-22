@@ -1,0 +1,110 @@
+﻿@{
+    ViewBag.Title = "Persistent XSS Demo";
+}
+
+
+
+<div>
+    <div class="row">
+        <h1>Example Forum</h1>
+        <div class="jumbotron">
+            <h2>A Thoughtful Post</h2>
+            <br> <br />
+            <p>You can easily find one of these out in the wild.</p>
+        </div>
+        <br> <br />
+        <div class="row">
+            <form>
+                <div>
+                    <label for="user"><b>Username: </b></label>
+                    <input type="text" id="user" name="user" />
+                    <label for="com"><b>Comment: </b></label>
+                    <input type="text" id="com" name="com" />
+                </div>
+            </form>
+            <div>
+                <button id="post" onclick="PostCom()">Post</button>
+                <button id="load" onclick="GetComments()">Load New Comments</button>
+            </div>
+            <div id="error"></div>
+        </div>
+        <br> <br />
+        <div class="row">
+            <h5>Comment Section</h5>
+            <ul id="comments">
+            </ul>
+        </div>
+
+    </div>
+
+</div>
+<script>
+    function GetComments() {
+
+        $.ajax({
+            url: 'https://localhost:44391/api/Comment',
+            type: 'get',
+
+            success: function (data, textStatus, jQxhr) {
+                var obj = data;
+                DisplayAll(data);
+
+            },
+            error: function (jqXhr, textStatus, errorThrown) {
+                console.log(errorThrown);
+            }
+        });
+    }
+
+    function getComments() {
+
+        $.ajax({
+            url: 'https://localhost:44391/api/Comment',
+            type: 'get',
+
+            success: function (data, textStatus, jQxhr) {
+                var obj = data;
+                displayAll(data);
+
+            },
+            error: function (jqXhr, textStatus, errorThrown) {
+                console.log(errorThrown);
+            }
+        });
+    }
+
+    function PostCom() {
+
+        $.ajax({
+            url: 'https://localhost:44391/api/Comment',
+            type: 'post',
+            contentType: 'application/json',
+            processData: false,
+
+            data: JSON.stringify({ Username: $("#user").val(), comment: $("#com").val()}),
+
+            success: function (data, textStatus, jQxhr) {
+                var html = "<p>Comment Posted</p>";
+                $("#error").html(html);
+            },
+            error: function (jqXhr, textStatus, errorThrown) {
+                console.log(errorThrown);
+            }
+        });
+    }
+
+    function DisplayAll(list) {
+        document.getElementById('comments').innerHTML = '<div>'
+        var html = "<div>";
+        for (var tran in list) {
+
+            html += "<li><div>   " + list[tran].Username + ": " + list[tran].comment + "</div></li>";
+        }
+        html += "</div>"
+
+        $("#comments").html(html);
+        
+       
+
+    }
+</script>

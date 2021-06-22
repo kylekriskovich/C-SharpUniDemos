@@ -1,0 +1,100 @@
+﻿
+@{
+    ViewBag.Title = "Comments";
+}
+<h2>@ViewBag.Title.</h2>
+
+
+<html>
+<body>
+    <form>
+        <div>
+            <label for="comment"><b>Comment: </b></label>
+            <input type="text" id="comment" name="comment" placeholder="Comment" />
+            <label for="search"><b>Search: </b></label>
+            <input type="text" id="search" name="search" placeholder="search" />
+        </div>
+    </form>
+    <br> <br />
+    <button id="get" onclick="getComments()"> All Comments</button>
+    <button id="search" onclick="searchComments()"> Search Comments</button>
+    <button id="test" onclick="submit()">Create Comment</button>
+    <div id="comerror"></div>
+
+    <div id="comments"></div>
+
+
+    <script>
+        function getComments() {
+
+            $.ajax({
+                url: 'https://localhost:44302/api/Comment',
+                type: 'get',
+
+                success: function (data, textStatus, jQxhr) {
+                    var obj = data;
+                    displayAll(data);
+                },
+                error: function (jqXhr, textStatus, errorThrown) {
+                    $('#comerror').html("<div>failed to retrieve comments</div>");
+                    console.log(errorThrown);
+                }
+            });
+        }
+
+        function submit() {
+
+            $.ajax({
+                url: 'https://localhost:44302/api/Comment',
+                type: 'post',
+                contentType: 'application/json',
+                processData: false,
+
+                data: JSON.stringify({ Username: $("#username").val(), Content: $("#comment").val() }),
+
+                success: function (data, textStatus, jQxhr) {
+                    $('#comerror').html("<div>Created new comment</div>");
+
+                },
+                error: function (jqXhr, textStatus, errorThrown) {
+                    $('#comerror').html("<div>failed to create new comment</div>");
+                    console.log(errorThrown);
+                }
+            });
+        }
+
+        function searchComments() {
+            $.ajax({
+                url: 'https://localhost:44302/api/Comment/Search/' + $("#search").val(),
+                type: 'get',
+
+                success: function (data, t, j) {
+                    var obj = data;
+                    displayAll(data);
+                },
+                error: function (j, t, e) {
+                    $('#comerror').html("<div>failed to find comments by that user</div>");
+                    console.log("Error Occur:" + e);
+                }
+            });
+        }
+
+        function displayAll(list) {
+            document.getElementById('comments').innerHTML = '<div> <h1> Comments </h1>'
+
+            for (var comment in list) {
+
+
+                document.getElementById('comments').innerHTML += '<li>' + '<div> Username:  ' + list[comment].Username + ' Comment:  ' + list[comment].Content + '</div></li>';
+
+            }
+
+            document.getElementById('comments').innerHTML += '</div>'
+
+        }
+
+    </script>
+
+
+</body>
+</html>

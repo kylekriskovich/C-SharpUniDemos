@@ -1,0 +1,87 @@
+﻿@{
+    ViewBag.Title = "Reflective XSS Demo";
+}
+
+    <div id="content">
+        <div class="row">
+            <div class="row">
+                <h2>Login</h2>
+                <form>
+                    <div>
+                        <label for="id"><b>Username: </b></label>
+                        <input type="text" id="usr" name="id" placeholder="Username" />
+                        <br> <br />
+                        <label for="pass"><b>Password: </b></label>
+                        <input type="password" id="pass" name="pass" placeholder="password" />
+                    </div>
+                </form>
+                <button id="login" onclick="login()">Login</button>
+                <br> <br />
+                <div id="error"></div>
+                <br> <br />
+
+            </div>
+            <div class="row">
+                <div id="account-details" style="display: none">
+                    <form>
+                        <div>
+                            <label for="fname"><b>FirstName: </b></label>
+                            <input type="text" id="fname" name="fname" />
+                            <br> <br />
+                            <label for="lname"><b>LastName: </b></label>
+                            <input type="text" id="lname" name="lname" />
+                            <br> <br />
+                            <label for="card"><b>Card Number: </b></label>
+                            <input type="password" id="card" name="card" />
+                            <br> <br />
+                            <label for="edate"><b>Expire Date: </b></label>
+                            <input type="text" id="edate" name="edate" />
+                            <br> <br />
+                            <label for="sec"><b>Security Number: </b></label>
+                            <input type="password" id="sec" name="sec" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <script>
+            function login() {
+             
+
+                $.ajax({
+                    url: 'https://localhost:44391/api/Account/Login/' + $("#usr").val() + $("#pass").val(),
+                    type: 'get',
+                    
+
+                    success: function (data, textStatus, jQxhr) {
+                        var obj = data;
+
+                        if (!$.trim(data) || obj == null) {
+                            var html = "<p>Sorry you entered the wrong username or password. The Username entered was: " + $("#usr").val() + "</p>";
+                            $("#error").html(html);
+                        } else {
+                            var obj2 = obj.card;
+                            $("#fname").val(obj.FirstName);
+                            $("#lname").val(obj.LastName);
+                            $("#card").val(obj2.CardNumber);
+                            $("#edate").val(obj2.ExpireDate);
+                            $("#sec").val(obj2.SecurityNum);
+                            var acc = document.getElementById("account-details");
+                            acc.style.display = "block";
+                        }
+
+                    },
+                    error: function (jqXhr, textStatus, errorThrown) {
+                        var html = "<p>Sorry you entered the wrong username or password. The Username entered was: " + $("#usr").val() + "</p>";
+                        $("#error").html(html);
+                        console.log(errorThrown);
+                    }
+                });
+
+                var acc = document.getElementById("account-details");
+            }
+        </script>
+
+        
+    </div>

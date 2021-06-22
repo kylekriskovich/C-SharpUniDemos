@@ -1,0 +1,37 @@
+﻿@{
+    ViewBag.Title = "Dom XSS Demo";
+}
+
+
+
+    <div class="row">
+        <div class="col-md-4">
+            <h2> Search </h2>
+            <div>
+                <!--- <form action="" method="get">-->
+                <div>
+                    <input id="search" type="text" name="search" value = "" placeholder="Search" />
+                    <button onclick="load()">Search</button>
+                </div>
+            </div>
+        </div>
+        <div id="results" class="col-md-4" style="display: none">
+            <h3> Search Results </h3>
+            <div id="input">
+                
+            </div>
+        </div>
+    </div>
+<script>
+    function load() {
+        var val = document.getElementById("search").value;
+        document.getElementById("input").innerHTML = document.baseURI + "?search=" + escape(val);
+        document.getElementById("results").style.display = "block";
+        
+    }
+</script>
+
+
+<!---<script>
+    document.write("<b>Current URL</b> : " + document.baseURI);
+</script> --->
